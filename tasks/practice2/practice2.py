@@ -1,4 +1,5 @@
 from typing import Iterable
+import random
 
 UNCULTURED_WORDS = ('kotleta', 'pirog')
 
@@ -12,7 +13,7 @@ def greet_user(name: str) -> str:
     :return: приветствие
     """
 
-    # пиши код здесь
+    greeting = f'Привет, {name}!'
     return greeting
 
 
@@ -28,7 +29,7 @@ def get_amount() -> float:
     :return: случайную сумму на счете
     """
 
-    # пиши код здесь
+    amount = round(random.randint(100, 1000000) + random.random(), 2)
     return amount
 
 
@@ -41,9 +42,14 @@ def is_phone_correct(phone_number: str) -> bool:
     :return: буленовское значение - bool: True - если номер корректны,
                                           False - если номер некорректный
     """
+    if not phone_number.startswith('+7'):
+        return False
 
-    # пиши код здесь
-    return result
+    for sym in phone_number[2:]:
+        if not sym.isdigit():
+            return False
+
+    return True
 
 
 def is_amount_correct(current_amount: float, transfer_amount: str) -> bool:
@@ -57,8 +63,8 @@ def is_amount_correct(current_amount: float, transfer_amount: str) -> bool:
     :return: буленовское значение - bool: True - если перевод возможен,
                                           False - если денег недостаточно
     """
+    result = current_amount >= float(transfer_amount)
 
-    # пиши код здесь
     return result
 
 
@@ -77,7 +83,13 @@ def moderate_text(text: str, uncultured_words: Iterable[str]) -> str:
     :return: текст, соответсвующий правилам
     """
 
-    # пиши код здесь
+    result = text.strip()
+    result = result.capitalize()
+    result = result.replace('\"', '')
+    result = result.replace('\'', '')
+    for word in uncultured_words:
+        if word in result:
+            result = result.replace(word, '#' * len(word))
     return result
 
 
@@ -85,20 +97,21 @@ def create_request_for_loan(user_info: str) -> str:
     """
     Генерирует заявку на кредит на основе входящей строки.
     Формат входящий строки:
-    
+
     Иванов,Петр,Сергеевич,01.01.1991,10000
-    
+
     Что должны вернуть на ее основе:
-    
+
     Фамилия: Иванов
     Имя: Петр
     Отчество: Сергеевич
     Дата рождения: 01.01.1991
     Запрошенная сумма: 10000
-    
+
     :param user_info: строка с информацией о клиенте
     :return: текст кредитной заявки
     """
 
-    # пиши код здесь
+    data = user_info.split(',')
+    result = 'Фамилия: {}\nИмя: {}\nОтчество: {}\nДата рождения: {}\nЗапрошенная сумма: {}'.format(*data)
     return result
