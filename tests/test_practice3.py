@@ -13,23 +13,25 @@ from tasks.practice3.practice3 import (
     ('text', 'result'),
     [
         (
-            'In the face of ambiguity, refuse the temptation to guess. 777',
+            'In the face of ambiguity, refuse the temptation to guess. '
+            'NotWord7 7NotWord! 777',
             {
                 'in': 1,
                 'the': 2,
                 'face': 1,
                 'of': 1,
-                'ambiguity,': 1,
+                'ambiguity': 1,
                 'refuse': 1,
                 'temptation': 1,
                 'to': 1,
+                'guess': 1,
             },
         ),
         ('', {}),
-        ('123 test', {'test': 1}),
-        ('test test', {'test': 2}),
-        ('test Test', {'test': 2}),
-        ('test123 Test 111', {'test': 1}),
+        ('123 - word', {'word': 1}),
+        ('word word!', {'word': 2}),
+        ('word Word...', {'word': 2}),
+        ('NotWord123 Word 111', {'word': 1}),
     ],
 )
 def test_count_words(text, result):
