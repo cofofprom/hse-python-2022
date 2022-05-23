@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 
 def count_words(text: str) -> Dict[str, int]:
@@ -58,12 +58,29 @@ def get_cashback(operations: List[Dict[str, Any]], special_category: List[str]) 
     :return: размер кешбека
     """
 
-    # пиши свой код здесь
+    res = 0
+    for x in operations:
+        if x['category'] in special_category:
+            res += x['amount'] * 0.05
+        else:
+            res += x['amount'] * 0.01
+    return res
 
-    return 0.0
 
+def get_path_to_file() -> Optional[Path]:
+    """
+    Находит корректный путь до тестового файла.
 
-PATH_TO_FILE = Path().resolve().parent / 'tasks' / 'practice3' / 'tasks.csv'
+    Если запускать тесты из pycharm - начальная папка - tests
+    Если запускать файлы через make tests - начальная папка - корень проекта
+
+    :return: путь до тестового файла tasks.csv
+    """
+    if Path().resolve().name == 'tests':
+        base_path = Path().resolve().parent
+    else:
+        base_path = Path().resolve()
+    return base_path / 'tasks' / 'practice3' / 'tasks.csv'
 
 
 def csv_reader(header: str) -> int:
@@ -79,7 +96,7 @@ def csv_reader(header: str) -> int:
 
     Файл для анализа: tasks.csv
     Для того чтобы файл корректно открывался в тестах:
-    используйте в качестве пути к файлу переменную PATH_TO_FILE,
+    для получения пути до файла - используйте функцию get_path_to_file
     которая определена перед функцией.
 
     CSV анализируем с помощью встроенной библиотеки csv

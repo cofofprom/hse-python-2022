@@ -58,7 +58,7 @@ def test_exp_list(numbers, exp, result):
                 {'amount': 77, 'category': 'flowers'},
             ],
             ['auto'],
-            7.77,
+            5.77,
         ),
     ],
 )
